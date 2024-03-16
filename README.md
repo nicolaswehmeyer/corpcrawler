@@ -1,7 +1,7 @@
-![CorpCrawler Header Image](corpcrawler.png)
-
 # CorpCrawler
 **A sales assistant for information gathering on enterprise accounts**
+
+![CorpCrawler Header Image](image.png)
 
 This python scripts automates searching Google for specific information on enterprises.
 
