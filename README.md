@@ -3,7 +3,9 @@
 
 This python scripts automates searching Google for specific information on enterprises.
 
-It is purely a terminal application developed to assist Account Managers and Sales Managers in automating information gathering tasks on their accounts. In this version it assists with finding out employee counts as well as headquarter locations of a list of given enterprises. It automates this process as it can become a highly time consuming task that can easily be automated.
+It is purely a terminal application developed to assist Account Managers and Sales Managers in automating information gathering tasks on their accounts. It automates this process as it can become a highly time consuming task that can easily be automated.
+
+When running the script, it expects you to at least provide the input file name, the output file name as well as the keywords you'd like it to automatically research and store for you within the output file.
 
 The scripts expects an input CSV-file (--input-file, -i) that contains an account name per each line (no header needed). It will then iterate through each account and based on the fetched results from Google, it will create an output file (--output-file, -o), to which it will add the fetched information as well as the source urls.
 
