@@ -9,8 +9,7 @@ It is purely a terminal application developed to assist Account Managers and Sal
 
 The scripts expects an input CSV-file (-i, --input-file) that contains the name of a corporation per each line (no header needed). It will then iterate through each account and based on the provided search keywords (-s, --search-keywords) it will fetch the information from Google. Lastly, it will create an output CSV-file (-o, --output-file), in which all the fetched information including sources will pe stored.
 
-*Why does this even exist?*
-Experience over the years has proven over and over again that the information at hand is often outdated or highly inaccuarate and having up-to-date information about enterprises would require hours to days to find updated information. This script will ease this process as it collects relevant information including its source in an automated fashion, so you can execute it regularly, to ensure you have the most relevant and up-to-date information whenever you need it.
+*Why does this even exist?* Experience over the years has proven over and over again that the information at hand is often outdated or highly inaccuarate and having up-to-date information about enterprises would require hours to days to find updated information. This script will ease this process as it collects relevant information including its source in an automated fashion, so you can execute it regularly, to ensure you have the most relevant and up-to-date information whenever you need it.
 
 # Installation
 To use the script, please make sure you are running Python3 and have GIT installed. Also, the solution is using the "googlesearch-python" module to effectively search and parse the Google results, so make sure to install all required dependencies.
