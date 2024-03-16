@@ -1,5 +1,5 @@
 # CorpCrawler
-**A sales assistant for information gathering on enterprise accounts**
+**A sales assistant for information gathering on corporate enterprises**
 
 ![CorpCrawler Header Image](image.png)
 
