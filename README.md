@@ -1,5 +1,5 @@
 # CorpCrawler
-**A sales assistant for information gathering on accounts**
+**A sales assistant for information gathering on enterprise accounts**
 
 This python scripts automates searching Google for specific information on enterprises.
 
