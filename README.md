@@ -56,15 +56,23 @@ Company Name Two
 
 # Example command line output
 ```
-./app.py -i accounts.csv -o output.csv --search-keywords "Employee Count" "Headquarter"
+./app.py -i accounts.csv -o updated.csv -s "Employee Count"                           
 Script started - Press CTRL + C to abort
-Reading input file accounts.csv and saving results to output.csv
+Reading input file accounts.csv and saving results to updated.csv
 Waiting for 5 seconds between each search request to avoid bot detection
+Will research the following keywords per each account: Employee Count
 ----------
 Progress [1/2] - Fetching and processing data for Company Name One
 Progress [2/2] - Fetching and processing data for Company Name Two
 ----------
 Script execution finished
+```
+
+# Example CSV output file
+```
+name,employee_count,employee_count_src
+Company Name One,"Companies ranked by number of employees. companies: 8,295 total employees count: 122,817,161 suggest/edit icon download icon. Rank by Market Cap Earnings ...",https://companiesmarketcap.com/largest-companies-by-number-of-employees/
+Company Name Two,"13.02.2024 — Largest companies in the world based on revenues, by number of employees 2023 ... Walmart had about 2.1 million employees in 2023, the highest of ...",https://www.statista.com/statistics/264671/top-50-companies-based-on-number-of-employees/
 ```
 
 ## License
