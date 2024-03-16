@@ -10,11 +10,6 @@ from googlesearch import search
 # Disable warnings from the requests library about SSL certificates
 requests.packages.urllib3.disable_warnings()
 
-# Constants for search keywords
-EMPLOYEE_COUNT_KEYWORD = "Mitarbeiterzahl"
-HQ_LOCATION_KEYWORD = "Hauptsitz"
-
-
 def configure_logging(verbose):
     """Configures logging to include error and debug information."""
     if verbose:
@@ -38,6 +33,7 @@ def parse_arguments():
                         help="Time (seconds) to wait between each Google Search. Default is 5.")
     parser.add_argument("-v", "--verbose", default=False,
                         action="store_true", help="Print debug log")
+    parser.add_argument("-s", "--search-keywords", required=True, nargs="+")
     return parser.parse_args()
 
 
@@ -83,7 +79,7 @@ def count_csv_rows(file_path):
         sys.exit(1)
 
 
-def iterate_csv_file(input_file, output_file, wait_time):
+def iterate_csv_file(input_file, output_file, keywords, wait_time):
     """Iterates over each row in the input CSV file, fetches data, and appends it to the output CSV file.
 
     Args:
@@ -94,26 +90,31 @@ def iterate_csv_file(input_file, output_file, wait_time):
     print(f"----------")
     row_count = count_csv_rows(input_file)
     with open(input_file, 'r', newline='') as file, open(output_file, 'w', newline='') as outfile:
-        fieldnames = ['name', 'employee_count',
-                      'employee_count_src', 'hq_location', 'hq_location_src']
+        fieldnames = ['name'] + [item for sublist in [(word.lower().replace(
+            ' ', '_'), f"{word.lower().replace(' ', '_')}_src") for word in keywords] for item in sublist]
         reader = csv.DictReader(file, fieldnames=fieldnames)
         writer = csv.DictWriter(outfile, fieldnames=fieldnames)
         writer.writeheader()
+
         for index, account in enumerate(reader):
             print(
                 f"Progress [{index+1}/{row_count}] - Fetching and processing data for {account['name']}")
-            employee_count_result = google_search(
-                account['name'], EMPLOYEE_COUNT_KEYWORD, wait_time)
-            hq_location_result = google_search(
-                account['name'], HQ_LOCATION_KEYWORD, wait_time)
-            if employee_count_result and hq_location_result:
-                writer.writerow({
-                    'name': account['name'],
-                    'employee_count': employee_count_result.description,
-                    'employee_count_src': employee_count_result.url,
-                    'hq_location': hq_location_result.description,
-                    'hq_location_src': hq_location_result.url
-                })
+            result = []
+
+            for keyword in keywords:
+                search_result = google_search(
+                    account['name'], keyword, wait_time)
+                result.extend([search_result.description, search_result.url])
+
+            row_data = {'name': account['name']}
+            row_data.update({fieldnames[1 + i * 2]: result[i * 2]
+                            for i in range(len(keywords))})
+            row_data.update(
+                {fieldnames[2 + i * 2]: result[i * 2 + 1] for i in range(len(keywords))})
+
+            if result:
+                writer.writerow(row_data)
+
             outfile.flush()
     print(f"----------")
 
@@ -127,8 +128,9 @@ def main():
         print(
             f"Reading input file {args.input_file} and saving results to {args.output_file}")
         print(
-            f"Waiting for {args.wait} seconds between each request to avoid bot detection")
-        iterate_csv_file(args.input_file, args.output_file, args.wait)
+            f"Waiting for {args.wait} seconds between each search request to avoid bot detection")
+        iterate_csv_file(args.input_file, args.output_file,
+                         args.search_keywords, args.wait)
     except KeyboardInterrupt:
         print("Script execution aborted")
         sys.exit()

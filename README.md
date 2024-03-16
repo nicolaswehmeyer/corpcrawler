@@ -18,17 +18,17 @@ To use the script, please make sure you are running Python3 and have GIT install
 2. OPTIONAL: Activate the virtual environment: ```source venv/bin/activate```
 2. Install dependencies: ```pip3 install -r requirements.txt```
 3. Make script executable: ```chmod +x app.py```
-4. Now you are ready to run it from your terminal: ```./app.py --input-file <FILE_NAME> --output-file <FILE_NAME>```
+4. Now you are ready to run it from your terminal: ```./app.py --input-file <FILE_NAME> --output-file <FILE_NAME> --search-keywords "Employee Count" "Headquarter"```
 
 # Usage
 Assuming we are storing a list of accounts in a CSV-file called accounts.csv and want to store the fetched information in a new CSV-file called updated.csv, **this would be the command to execute:**
 ```
-./app.py --input-file accounts.csv --output-file updated.csv
+./app.py --input-file accounts.csv --output-file updated.csv --search-keywords "Employee Count" "Headquarter"
 ```
 **The script supports the following options:**
 ```
-./app.py --help                                          
-usage: app.py [-h] -i INPUT_FILE -o OUTPUT_FILE [-w WAIT] [-m {w,a}] [-v]
+./app.py --help
+usage: app.py [-h] -i INPUT_FILE -o OUTPUT_FILE [-w WAIT] [-v] -s SEARCH_KEYWORDS [SEARCH_KEYWORDS ...]
 
 Fetch and update company data from Google search.
 
@@ -40,24 +40,27 @@ options:
                         File name to save updated data in
   -w WAIT, --wait WAIT  Time (seconds) to wait between each Google Search. Default is 5.
   -v, --verbose         Print debug log
+  -s SEARCH_KEYWORDS [SEARCH_KEYWORDS ...], --search-keywords SEARCH_KEYWORDS [SEARCH_KEYWORDS ...]
 ```
 
 # Example input CSV file
 An example CSV-file would look like this
 ```
-Company One
-Company Two
-Company Three
+Company Name One
+Company Name Two
+...
 ```
 
 # Example command line output
 ```
-./app.py --input-file accounts.csv --output-file updated.csv
-Script started
-Waiting for 5 seconds between each request to avoid bot detection
-Parsing accounts.csv
-Progress [0/2] - Fetching and processing data for Röchling SE & Co. KG
-Progress [1/2] - Fetching and processing data for Heidelberger Druckmaschinen AG
+./app.py -i accounts.csv -o output.csv --search-keywords "Employee Count" "Headquarter" "Headquarter"
+Script started - Press CTRL + C to abort
+Reading input file accounts.csv and saving results to output.csv
+Waiting for 5 seconds between each search request to avoid bot detection
+----------
+Progress [1/2] - Fetching and processing data for Company Name One
+Progress [2/2] - Fetching and processing data for Company Name Two
+----------
 Script execution finished
 ```
 
