@@ -12,7 +12,7 @@ To use the script, please make sure you are running Python3 and have GIT install
 
 **Here are the steps to install all dependencies and run the script:**
 1. Clone this repo in your terminal: ```git clone git@github.com:nicolaswehmeyer/corpcrawler.git && cd corpcrawler```
-1. OPTIONAL: Create a virtual environment: ```python3 -m venv venv````
+1. OPTIONAL: Create a virtual environment: ```python3 -m venv venv```
 2. OPTIONAL: Activate the virtual environment: ```source venv/bin/activate```
 2. Install dependencies: ```pip3 install -r requirements.txt```
 3. Make script executable: ```chmod +x app.py```
