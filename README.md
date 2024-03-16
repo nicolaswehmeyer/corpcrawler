@@ -40,7 +40,7 @@ options:
   -v, --verbose         Print debug log
 ```
 
-# Example CSV
+# Example input CSV file
 An example CSV-file would look like this
 ```
 Company One
@@ -48,7 +48,7 @@ Company Two
 Company Three
 ```
 
-# Example output
+# Example command line output
 ```
 ./app.py --input-file accounts.csv --output-file updated.csv
 Script started
