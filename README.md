@@ -1,3 +1,5 @@
+![CorpCrawler Header Image](corpcrawler.png)
+
 # CorpCrawler
 **A sales assistant for information gathering on enterprise accounts**
 
