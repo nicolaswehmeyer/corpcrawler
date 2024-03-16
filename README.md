@@ -20,7 +20,8 @@ To use the script, please make sure you are running Python3 and have GIT install
 2. OPTIONAL: Activate the virtual environment: ```source venv/bin/activate```
 2. Install dependencies: ```pip3 install -r requirements.txt```
 3. Make script executable: ```chmod +x app.py```
-4. Now you are ready to run it from your terminal: ```./app.py --input-file <FILE_NAME> --output-file <FILE_NAME> --search-keywords "Employee Count" "Headquarter"```
+4. Now you are ready to run it from your terminal. Example:
+```./app.py --input-file <FILE_NAME> --output-file <FILE_NAME> --search-keywords "Employee Count" "Headquarter"```
 
 # Usage
 Assuming we are storing a list of accounts in a CSV-file called accounts.csv and want to store the fetched information in a new CSV-file called updated.csv, **this would be the command to execute:**
@@ -30,7 +31,7 @@ Assuming we are storing a list of accounts in a CSV-file called accounts.csv and
 **The script supports the following options:**
 ```
 ./app.py --help
-usage: app.py [-h] -i INPUT_FILE -o OUTPUT_FILE [-w WAIT] [-v] -s SEARCH_KEYWORDS [SEARCH_KEYWORDS ...]
+usage: app.py [-h] -i INPUT_FILE -o OUTPUT_FILE [-w WAIT] [-d] -s SEARCH_KEYWORDS [SEARCH_KEYWORDS ...]
 
 Fetch and update company data from Google search.
 
@@ -41,7 +42,7 @@ options:
   -o OUTPUT_FILE, --output-file OUTPUT_FILE
                         File name to save updated data in
   -w WAIT, --wait WAIT  Time (seconds) to wait between each Google Search. Default is 5.
-  -v, --verbose         Print debug log
+  -d, --debug           Print debug log messages
   -s SEARCH_KEYWORDS [SEARCH_KEYWORDS ...], --search-keywords SEARCH_KEYWORDS [SEARCH_KEYWORDS ...]
 ```
 
@@ -55,7 +56,7 @@ Company Name Two
 
 # Example command line output
 ```
-./app.py -i accounts.csv -o output.csv --search-keywords "Employee Count" "Headquarter" "Headquarter"
+./app.py -i accounts.csv -o output.csv --search-keywords "Employee Count" "Headquarter"
 Script started - Press CTRL + C to abort
 Reading input file accounts.csv and saving results to output.csv
 Waiting for 5 seconds between each search request to avoid bot detection

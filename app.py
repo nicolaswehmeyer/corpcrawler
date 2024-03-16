@@ -10,9 +10,9 @@ from googlesearch import search
 # Disable warnings from the requests library about SSL certificates
 requests.packages.urllib3.disable_warnings()
 
-def configure_logging(verbose):
+def configure_logging(debug):
     """Configures logging to include error and debug information."""
-    if verbose:
+    if debug:
         logging.basicConfig(level=logging.DEBUG,
                             format='%(asctime)s - %(levelname)s - %(message)s')
 
@@ -31,8 +31,8 @@ def parse_arguments():
                         help="File name to save updated data in")
     parser.add_argument("-w", "--wait", type=int, default=5,
                         help="Time (seconds) to wait between each Google Search. Default is 5.")
-    parser.add_argument("-v", "--verbose", default=False,
-                        action="store_true", help="Print debug log")
+    parser.add_argument("-d", "--debug", default=False,
+                        action="store_true", help="Print debug log messages")
     parser.add_argument("-s", "--search-keywords", required=True, nargs="+")
     return parser.parse_args()
 
@@ -87,15 +87,17 @@ def iterate_csv_file(input_file, output_file, keywords, wait_time):
         output_file (str): Path to the output CSV file.
         wait_time (int): Time to wait between requests to prevent bot detection.
     """
-    print(f"----------")
     row_count = count_csv_rows(input_file)
     with open(input_file, 'r', newline='') as file, open(output_file, 'w', newline='') as outfile:
+        print(f"Will research the following keywords per each account: {', '.join(keywords)}")
+        print(f"----------")
+
         fieldnames = ['name'] + [item for sublist in [(word.lower().replace(
             ' ', '_'), f"{word.lower().replace(' ', '_')}_src") for word in keywords] for item in sublist]
         reader = csv.DictReader(file, fieldnames=fieldnames)
         writer = csv.DictWriter(outfile, fieldnames=fieldnames)
         writer.writeheader()
-
+        
         for index, account in enumerate(reader):
             print(
                 f"Progress [{index+1}/{row_count}] - Fetching and processing data for {account['name']}")
@@ -123,7 +125,7 @@ def main():
     """Main function to execute the script."""
     try:
         args = parse_arguments()
-        configure_logging(args.verbose)
+        configure_logging(args.debug)
         print("Script started - Press CTRL + C to abort")
         print(
             f"Reading input file {args.input_file} and saving results to {args.output_file}")
