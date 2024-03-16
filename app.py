@@ -101,7 +101,7 @@ def iterate_csv_file(input_file, output_file, wait_time):
         writer.writeheader()
         for index, account in enumerate(reader):
             print(
-                f"Progress [{index}/{row_count}] - Fetching and processing data for {account['name']}")
+                f"Progress [{index+1}/{row_count}] - Fetching and processing data for {account['name']}")
             employee_count_result = google_search(
                 account['name'], EMPLOYEE_COUNT_KEYWORD, wait_time)
             hq_location_result = google_search(
